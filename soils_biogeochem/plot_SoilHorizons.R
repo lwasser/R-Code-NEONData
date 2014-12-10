@@ -15,5 +15,5 @@ soil <- data.frame(depth=depth, prop=prop)
 ## note the reversal of the y-axis with ylim=c(150,0)
 plot(depth ~ prop, data=soil, ylim=c(150,0), type='s', ylab='Depth', xlab='Property', main='Property vs. Depth Plot')
 
-Really nice plots
+#Really nice plots
 #https://r-forge.r-project.org/scm/viewvc.php/*checkout*/docs/aqp/aqp-intro.html?root=aqp
