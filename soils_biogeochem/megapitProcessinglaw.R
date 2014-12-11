@@ -1,19 +1,21 @@
 # read in data
 # re-set working directory for your purposes
 #setwd("/Users/clunch/biogeochemistryIPT/prototype_data/megapit")
+#megapit <- read.csv("/Users/clunch/biogeochemistryIPT/prototype_data/megapit/Soil_pit_data_20141113.csv", header=T, fill=T)
 
 options(stringsAsFactors=F, strip.white=T)
 megapit <- read.csv("/Users/lwasser/Documents/GitHub/biogeochemistryIPT/prototype_data/megapit/Soil_pit_data_20141113.csv", header=T, fill=T)
 
-# change column headers and stuff for functionality (Ed's headers are impossible)
+# change column headers and stuff for functionality
 # plus it looks like a bunch of longitudes are entered incorrectly? I haven't
 # fixed them here, but a bunch are >0 and they should all be <0...
 colnames(megapit)[c(3,4)] <- c("latitude","longitude")
 colnames(megapit)[c(24,27,28)] <- c("horizon","top.depth","bottom.depth")
-colnames(megapit)[c(91,121)] <- c("total.P", "total.N")
+colnames(megapit)[c(91,120,121)] <- c("total.P", "total.C","total.N")
+
 
 # let's create a subset with only the data that we want to work with
-soilsSubset <- cbind(megapit[2],megapit[3],megapit[4],megapit[24],megapit[27],megapit[28],megapit[91],megapit[121])
+soilsSubset <- cbind(megapit[2],megapit[3],megapit[4],megapit[24],megapit[27],megapit[28],megapit[91],megapit[120],megapit[121])
 #for some reason more than 244 rows populate - remove extra rows
 soilsSubset <- soilsSubset[-c(255:504), ]
 #check that the data look ok
@@ -59,6 +61,7 @@ counts <- rbind(tot_N_P$total.N, tot_N_P$total.P)
 barplot(counts, main="Stacked N:P Ratio",
         xlab="Site", col=c("darkblue","red"),
         names.arg=tot_N_P$site, legend = rownames(counts))
+
 
 
 ##################################
@@ -141,5 +144,11 @@ plot(NPrat~A.agg$latitude, pch=20, xlab="Latitude", ylab="N:P ratio")
 # let's start with plotting something for all sites (!)
 plot(I(-depth)~megapit$total.N, pch=20, cex=0.3, xlab="total N (g kg-1)", ylab="depth (cm)")
 # nifty
+
+# C by depth
+plot(I(-depth)~megapit$total.C, pch=20, cex=0.3, xlab="total C (g kg-1)", ylab="depth (cm)")
+
+plot(I(-depth)~megapit$total.C)
+for(i in as.factor(megapit$Site))
 
 
