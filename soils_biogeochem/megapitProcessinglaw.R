@@ -148,7 +148,29 @@ plot(I(-depth)~megapit$total.N, pch=20, cex=0.3, xlab="total N (g kg-1)", ylab="
 # C by depth
 plot(I(-depth)~megapit$total.C, pch=20, cex=0.3, xlab="total C (g kg-1)", ylab="depth (cm)")
 
-plot(I(-depth)~megapit$total.C)
-for(i in as.factor(megapit$Site))
+# plot lines for each site
+plot(I(-depth)~megapit$total.C, type="n", tck=0.01, xlab=expression(paste("total C (g kg"^{-1}, ")")), 
+     ylab="depth (cm)")
+# setting a palette and making these all different colors is too much of a pain in the ass
+for(i in levels(as.factor(megapit$Site))) {
+  lines(I(-depth)[which(as.factor(megapit$Site)==i)]~megapit$total.C[which(as.factor(megapit$Site)==i)], 
+        col="black")
+}
+
+# picking a few good sites to plot:
+plot(I(-depth)~megapit$total.C, type="n", tck=0.01, xlab=expression(paste("total C (g kg"^{-1}, ")")), 
+     ylab="depth (cm)")
+lines(I(-depth)[which(as.factor(megapit$Site)=="Bartlett")]~
+        megapit$total.C[which(as.factor(megapit$Site)=="Bartlett")], 
+      col="black")
+lines(I(-depth)[which(as.factor(megapit$Site)=="Lajas")]~
+        megapit$total.C[which(as.factor(megapit$Site)=="Lajas")], 
+      col="red")
+lines(I(-depth)[which(as.factor(megapit$Site)=="CASTNET")]~
+        megapit$total.C[which(as.factor(megapit$Site)=="CASTNET")], 
+      col="green")
+lines(I(-depth)[which(as.factor(megapit$Site)=="Dakota Coteau")]~
+        megapit$total.C[which(as.factor(megapit$Site)=="Dakota Coteau")], 
+      col="purple")
 
 
